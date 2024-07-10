@@ -117,7 +117,7 @@ const Quiz = () => {
                       return (
                         <button
                           key={index}
-                          className={`w-10 h-10  flex text-black items-center justify-center border border2 rounded-3xl ${bgColor} p-2`}
+                          className={`w-10 h-10  flex text-black items-center justify-center border border2 rounded-3xl  ${bgColor} p-2 active:shadow-lg active:border-4`}
                           onClick={() => handleQuestion(startingIndex + index)}
                         >
                           {startingIndex + index + 1}
@@ -132,11 +132,11 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col sm:flex-row w-full mt-10 justify-center sm:justify-end mr-5'>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#14bf9b]' onClick={skipQuestion}>SKIP</button>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#3597d8]' onClick={previousQuestion}>PREVIOUS</button>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#2fc271]' onClick={nextQuestion}>NEXT</button>
-              <button className='border-2 p-2 px-8 text-white rounded-3xl bg-[#e3523d]' onClick={finishQuiz}>FINISH</button>
+            <div className='flex flex-col sm:flex-row w-full  mt-10 justify-center sm:justify-end mr-5'>
+              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#14bf9b] active:shadow-lg active:border-2' onClick={skipQuestion}>SKIP</button>
+              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#3597d8] active:shadow-lg active:border-2' onClick={previousQuestion}>PREVIOUS</button>
+              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#2fc271] active:shadow-lg active:border-2' onClick={nextQuestion}>NEXT</button>
+              <button className='border-2 p-2 px-8 text-white rounded-3xl bg-[#e3523d] active:shadow-lg active:border-4' onClick={finishQuiz}>FINISH</button>
             </div>
           </div>
         </div>
