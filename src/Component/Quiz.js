@@ -18,6 +18,7 @@ const Quiz = () => {
     }
   }, [newquesdata]);
 
+  
   if (!newquesdata || newquesdata.length === 0 || answers.length === 0) {
     return <div>Loading...</div>;
   }
@@ -87,7 +88,7 @@ const Quiz = () => {
         <div className='w-[90%] max-w-5xl mt-10 mb-10 h-1/2 overflow-hidden shadow-xl bg-white' style={{ boxShadow: '0 -4px 10px -1px #97dbcc, 0px 0px 10px black', borderTop: '4px solid #97dbcc', borderRadius: '10px' }}>
           <div className='p-5'>
             <div className='grid gap-4 sm:flex lg:flex justify-between ml-5 mr-5'>
-              <h1 className='font-bold text-3xl font-mono'>Test 03 - CIVICS, POLITICAL SCIENCE</h1>
+              <h1 className='font-bold text-3xl font-mono'>COMPUTER PRACTICE SET</h1>
               <div className='flex items-center mt-5 lg:mt-0 sm:mt-0'>
                 <QuizTimer totalTime={newquesdata.length * 1} finishQuiz={finishQuiz} />
               </div>
@@ -99,11 +100,11 @@ const Quiz = () => {
                   {currentQuestion.Questions}
                 </div>
                 <div className='option mt-5 text-xl'>
-                  <ul className='ml-5'>
-                    <li className={` mb-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? 'bg-blue-200' : ''}`} onClick={() => selectAnswer('A')}>A. {currentQuestion.A}</li>
-                    <li className={` mb-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? 'bg-blue-200' : ''}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
-                    <li className={` mb-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? 'bg-blue-200' : ''}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
-                    <li className={` mb-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? 'bg-blue-200' : ''}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
+                  <ul className='ml-5 mr-5 '>
+                    <li className={` mb-5  pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '  border-solid border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('A') }>A. {currentQuestion.A}</li>
+                    <li className={` mb-5  pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-solid   border-indigo-500/100   border-4' : ''}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
+                    <li className={` mb-5 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? '  border-solid  border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
+                    <li className={` mb-5 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? '  border-solid  border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
                   </ul>
                 </div>
               </div>

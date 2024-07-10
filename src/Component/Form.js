@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { data } from './Data';
 
 const Form = ({ newarryafunction }) => {
-    const [numQuestions, setNumQuestions] = useState(0);
     const [name, setName] = useState('');
     const [mobileno, setMobileno] = useState('');
-    const [canStartQuiz, setCanStartQuiz] = useState(false);
+    const [numQuestions, setNumQuestions] = useState(0);
+    const navigate = useNavigate();
 
     const handleStartQuiz = () => {
         if (!name.trim() || !mobileno.trim()) {
             alert("Please fill out all fields.");
-            setCanStartQuiz(false);
             return;
         }
 
         if (numQuestions <= 0 || numQuestions > 867) {
-            alert("Please enter a valid number of questions (1-867).");
-            setCanStartQuiz(false);
+            alert("Please select a valid number of questions.");
             return;
         }
 
@@ -27,7 +25,8 @@ const Form = ({ newarryafunction }) => {
         const slicedData = data.slice(startIndex, endIndex);
         console.log("starting index is ", startIndex, "ending index is ", endIndex);
         newarryafunction(startIndex, endIndex);
-        setCanStartQuiz(true);
+
+        navigate('/quiz');
     }
 
     return (
@@ -49,22 +48,24 @@ const Form = ({ newarryafunction }) => {
                         <label htmlFor='mobileno' className='block text-sm font-medium text-gray-700'>Phone no:</label>
                         <input
                             id='mobileno'
-                            type='number'
+                            type='text'
                             className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
                             value={mobileno}
                             onChange={(e) => setMobileno(e.target.value)}
                         />
                     </div>
-                    <div>Total Questions: 867. Choose a number.</div>
                     <div>
                         <label htmlFor='numQuestions' className='block text-sm font-medium text-gray-700'>Number of Questions:</label>
-                        <input
+                        <select
                             id='numQuestions'
-                            type='number'
-                            placeholder='1-867'
                             className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
+                            value={numQuestions}
                             onChange={(e) => setNumQuestions(Number(e.target.value))}
-                        />
+                        >
+                            <option value={0}>Select</option>
+                            <option value={30}>30 Questions</option>
+                            <option value={50}>50 Questions</option>
+                        </select>
                     </div>
                 </div>
                 <div className='mt-10 text-center'>
@@ -74,15 +75,6 @@ const Form = ({ newarryafunction }) => {
                     >
                         Start The Quiz
                     </button>
-                    {canStartQuiz && (
-                        <Link to='/quiz'>
-                            <button
-                                className='inline-block border border-2 border-gray-300 rounded-md shadow-sm p-3 bg-green-500 text-white hover:bg-green-600 mt-4'
-                            >
-                                Go to Quiz
-                            </button>
-                        </Link>
-                    )}
                 </div>
             </div>
         </div>
