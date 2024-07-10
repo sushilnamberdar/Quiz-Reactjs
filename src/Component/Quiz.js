@@ -92,7 +92,7 @@ const Quiz = () => {
                 <QuizTimer totalTime={newquesdata.length * 1} finishQuiz={finishQuiz} />
               </div>
             </div>
-            <div className='flex flex-col lg:flex-row justify-between h-auto mt-10 ml-5 mr-5 bg-[#efefef] p-5' style={{ boxShadow: 'inset 0px 0px 7px black' }}>
+            <div className='flex flex-col lg:flex-row justify-between h-auto mt-10  bg-[#efefef] p-5' style={{ boxShadow: 'inset 0px 0px 7px black' }}>
               <div className='flex flex-col mt-5 lg:mt-0 w-full lg:w-2/3'>
                 <div className='font-bold flex text-2xl'>
                   <div className='mr-2'>{questionNumber + 1}.</div>
@@ -107,17 +107,17 @@ const Quiz = () => {
                   </ul>
                 </div>
               </div>
-              <div className='mt-10 lg:mt-0 bg-white h-auto w-full lg:w-1/3 flex flex-col p-5 rounded-md' style={{ boxShadow: '0 0 10px gray' }}>
+              <div className='mt-10 lg:mt-0 bg-white h-auto w-full lg:w-1/3 flex flex-col p-5 rounded-md md:mt-[-10px]' style={{ boxShadow: '0 0 10px gray' }}>
                 <h1 className='font-bold'>ANSWER STATUS</h1>
                 <div>
-                  <div className='grid grid-cols-6 h-80 gap-2 mt-5'>
+                <div className='lg:grid lg:grid-cols-6 lg:h-80 gap-1 mt-5 gird  mg:gird md:grid-cols-6 md:h-80   grid grid-cols-3 mt-1 mb-2 xs:grid-cols-4 xs:h-[400px]'>
                     {currentData.map((item, index) => {
                       const answerState = answers[startingIndex + index]?.status;
                       const bgColor = answerState === 'unattempted' ? 'bg-white' : answerState === 'attempted' ? 'bg-green-600' : 'bg-red-600';
                       return (
                         <button
                           key={index}
-                          className={`w-10 h-10 flex text-black items-center justify-center border border2 rounded-3xl ${bgColor} p-2`}
+                          className={`w-10 h-10  flex text-black items-center justify-center border border2 rounded-3xl ${bgColor} p-2`}
                           onClick={() => handleQuestion(startingIndex + index)}
                         >
                           {startingIndex + index + 1}
@@ -125,7 +125,7 @@ const Quiz = () => {
                       );
                     })}
                   </div>
-                  <div className='flex items-center mt-4 justify-between'>
+                  <div className='flex items-center mt-4  justify-between'>
                     <button className='border p-3' onClick={previousPage}>PREVIOUS</button>
                     <button className='border p-3' onClick={nextPage}>NEXT</button>
                   </div>
