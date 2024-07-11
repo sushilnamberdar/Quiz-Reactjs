@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Result from './Result';
 import QuizTimer from './QuizTimer';
+import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Quiz = () => {
+  
   const newquesdata = useSelector((state) => state.newquestionarray.newquearray);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -11,6 +14,7 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const itemsPerPage = 36;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (newquesdata && newquesdata.length > 0) {
@@ -18,11 +22,7 @@ const Quiz = () => {
     }
   }, [newquesdata]);
 
-  
-  if (!newquesdata || newquesdata.length === 0 || answers.length === 0) {
-    return <div>Loading...</div>;
-  }
-
+ 
   const currentQuestion = newquesdata[questionNumber];
   const startingIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startingIndex + itemsPerPage;
@@ -80,6 +80,30 @@ const Quiz = () => {
     }
   };
 
+
+
+   
+  // redirectt to the home page 
+  const [isReload, setIsReload] = useState(false);
+
+  useEffect(() => {
+    const handleReload = () => {
+      setIsReload(true);
+    };
+    window.addEventListener('beforeunload', handleReload);
+    return () => {
+      window.removeEventListener('beforeunload', handleReload);
+    };
+  }, []);
+
+   if (isReload) {
+     window.location.href = '/';
+  }
+
+  if (!newquesdata || newquesdata.length === 0 || answers.length === 0) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className='flex justify-center w-full min-h-screen'>
       {showResult ? (
@@ -88,23 +112,23 @@ const Quiz = () => {
         <div className='w-[90%] max-w-5xl mt-10 mb-10 h-1/2 overflow-hidden shadow-xl bg-white' style={{ boxShadow: '0 -4px 10px -1px #97dbcc, 0px 0px 10px black', borderTop: '4px solid #97dbcc', borderRadius: '10px' }}>
           <div className='p-5'>
             <div className='grid gap-4 sm:flex lg:flex justify-between ml-5 mr-5'>
-              <h1 className='font-bold text-3xl font-mono'>COMPUTER PRACTICE SET</h1>
+              <h1 className='font-bold text-3xl font-mono'>COMPUTER PRACTICE SET Topic:{currentQuestion.TOPIC}</h1>
               <div className='flex items-center mt-5 lg:mt-0 sm:mt-0'>
                 <QuizTimer totalTime={newquesdata.length * 1} finishQuiz={finishQuiz} />
               </div>
             </div>
             <div className='flex flex-col lg:flex-row justify-between h-auto mt-10  bg-[#efefef] p-5' style={{ boxShadow: 'inset 0px 0px 7px black' }}>
               <div className='flex flex-col mt-5 lg:mt-0 w-full lg:w-2/3'>
-                <div className='font-bold flex text-2xl'>
+                <div className='font-bold flex text-2xl mr-1'>
                   <div className='mr-2'>{questionNumber + 1}.</div>
                   {currentQuestion.Questions}
                 </div>
                 <div className='option mt-5 text-xl'>
                   <ul className='ml-5 mr-5 '>
-                    <li className={` mb-5  pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '  border-solid border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('A') }>A. {currentQuestion.A}</li>
-                    <li className={` mb-5  pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-solid   border-indigo-500/100   border-4' : ''}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
-                    <li className={` mb-5 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? '  border-solid  border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
-                    <li className={` mb-5 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? '  border-solid  border-indigo-500/100   border-4'  : ''}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
+                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '  border-solid  border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('A') }>A. {currentQuestion.A}</li>
+                    <li className={` mb-5  pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-solid   border-indigo-500/100 bg-blue-300  border-4' : ''}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
+                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? '  border-solid   border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
+                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? '  border-solid   border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
                   </ul>
                 </div>
               </div>
