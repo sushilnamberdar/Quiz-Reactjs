@@ -30,16 +30,26 @@ const Quiz = () => {
 
   const nextQuestion = () => {
     if (questionNumber < newquesdata.length - 1) {
-      setQuestionNumber((prevQuestion) => prevQuestion + 1);
+      const newQuestionNumber = questionNumber + 1;
+      setQuestionNumber(newQuestionNumber);
+      const newEndIndex = currentPage * itemsPerPage;
+      if (newQuestionNumber >= newEndIndex) {
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
     }
   };
-
+  
   const previousQuestion = () => {
     if (questionNumber > 0) {
-      setQuestionNumber((prevQuestion) => prevQuestion - 1);
+      const newQuestionNumber = questionNumber - 1;
+      setQuestionNumber(newQuestionNumber);
+      const newStartingIndex = (currentPage - 1) * itemsPerPage;
+      if (newQuestionNumber < newStartingIndex) {
+        setCurrentPage((prevPage) => prevPage - 1);
+      }
     }
   };
-
+  
   const handleQuestion = (index) => {
     setQuestionNumber(index);
   };
