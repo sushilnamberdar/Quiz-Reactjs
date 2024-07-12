@@ -23,10 +23,11 @@ const QuizTimer = ({ totalTime, finishQuiz }) => {
   };
 
   return (
-    <div className='ml-5 p-3 flex items-center text-white text-lg' style={{ backgroundColor: '#4e86b5', borderRadius: '30px', minWidth: '100px' }}>
-      <div className='w-20'>Time Left:</div>
-      <div className='ml-2'>{formatTime(timeLeft)}</div>
-    </div>
+    <>
+     <div className='flex flex-col sm:flex-row w-full   justify-center sm:justify-end mr-5'>
+     <button className=' flex w-52 mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#3597d8]'> <div>TIME LEFT:</div>{"_"+formatTime(timeLeft)}</button>
+     </div>
+     </>
   );
 };
 

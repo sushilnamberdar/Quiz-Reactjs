@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 const Quiz = () => {
-  
+
   const newquesdata = useSelector((state) => state.newquestionarray.newquearray);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -14,6 +14,7 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const itemsPerPage = 36;
+  const [answred, setanswred ] = useState('0')
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +23,15 @@ const Quiz = () => {
     }
   }, [newquesdata]);
 
- 
+  useEffect(() => {
+    const countAttemptedQuestions = () => {
+      const attemptedCount = answers.filter((answer) => answer.status === 'attempted').length;
+      setanswred(attemptedCount);
+    };
+    countAttemptedQuestions();
+  }, [answers]);
+
+
   const currentQuestion = newquesdata[questionNumber];
   const startingIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startingIndex + itemsPerPage;
@@ -38,7 +47,7 @@ const Quiz = () => {
       }
     }
   };
-  
+
   const previousQuestion = () => {
     if (questionNumber > 0) {
       const newQuestionNumber = questionNumber - 1;
@@ -49,7 +58,7 @@ const Quiz = () => {
       }
     }
   };
-  
+
   const handleQuestion = (index) => {
     setQuestionNumber(index);
   };
@@ -92,7 +101,7 @@ const Quiz = () => {
 
 
 
-   
+
   // redirectt to the home page 
   const [isReload, setIsReload] = useState(false);
 
@@ -106,14 +115,14 @@ const Quiz = () => {
     };
   }, []);
 
-   if (isReload) {
-     window.location.href = '/';
+  if (isReload) {
+    window.location.href = '/';
   }
 
   if (!newquesdata || newquesdata.length === 0 || answers.length === 0) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <div className='flex justify-center w-full min-h-screen'>
       {showResult ? (
@@ -134,18 +143,19 @@ const Quiz = () => {
                   {currentQuestion.Questions}
                 </div>
                 <div className='option mt-5 text-xl'>
-                  <ul className='ml-5 mr-5 '>
-                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '  border-solid  border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('A') }>A. {currentQuestion.A}</li>
-                    <li className={` mb-5  pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-solid   border-indigo-500/100 bg-blue-300  border-4' : ''}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
-                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? '  border-solid   border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
-                    <li className={` mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? '  border-solid   border-indigo-500/100 bg-blue-300  border-4'  : ''}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
+                  <ul className='ml-5 mr-5'>
+                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('A')}>A. {currentQuestion.A}</li>
+                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
+                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
+                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
                   </ul>
+
                 </div>
               </div>
               <div className='mt-10 lg:mt-0 bg-white h-auto w-full lg:w-1/3 flex flex-col p-5 rounded-md md:mt-[-10px]' style={{ boxShadow: '0 0 10px gray' }}>
                 <h1 className='font-bold'>ANSWER STATUS</h1>
                 <div>
-                <div className='lg:grid lg:grid-cols-6 lg:h-80 gap-1 mt-5 gird  mg:gird md:grid-cols-6 md:h-80   grid grid-cols-3 mt-1 mb-2 xs:grid-cols-4 xs:h-[400px]'>
+                  <div className='lg:grid lg:grid-cols-6 lg:h-80 gap-1 mt-5 gird  mg:gird md:grid-cols-6 md:h-80   grid grid-cols-3 mt-1 mb-2 xs:grid-cols-4 xs:h-[400px]'>
                     {currentData.map((item, index) => {
                       const answerState = answers[startingIndex + index]?.status;
                       const bgColor = answerState === 'unattempted' ? 'bg-white' : answerState === 'attempted' ? 'bg-green-600' : 'bg-red-600';
@@ -167,13 +177,19 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col sm:flex-row w-full  mt-10 justify-center sm:justify-end mr-5'>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#14bf9b] active:shadow-lg active:border-2' onClick={skipQuestion}>SKIP</button>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#3597d8] active:shadow-lg active:border-2' onClick={previousQuestion}>PREVIOUS</button>
-              <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#2fc271] active:shadow-lg active:border-2' onClick={nextQuestion}>NEXT</button>
-              <button className='border-2 p-2 px-8 text-white rounded-3xl bg-[#e3523d] active:shadow-lg active:border-4' onClick={finishQuiz}>FINISH</button>
+            <div className='flex flex-col sm:flex-row w-full mt-10 justify-between  mr-5'>
+              <div className='mb-4  flex sm:mb-0 sm:mr-5 font-bold ' style={{fontSize:"20px"}}>
+                Answered: <div className=' font-bold ml-1' >{answred}</div>
+              </div>
+              <div className='flex flex-col sm:flex-row'>
+                <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#14bf9b] active:shadow-lg active:border-2' onClick={skipQuestion}>SKIP</button>
+                <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#3597d8] active:shadow-lg active:border-2' onClick={previousQuestion}>PREVIOUS</button>
+                <button className='mb-2 sm:mb-0 sm:mr-5 border-2 p-2 px-8 text-white rounded-3xl bg-[#2fc271] active:shadow-lg active:border-2' onClick={nextQuestion}>NEXT</button>
+                <button className='border-2 p-2 px-8 text-white rounded-3xl bg-[#e3523d] active:shadow-lg active:border-4' onClick={finishQuiz}>FINISH</button>
+              </div>
             </div>
           </div>
+
         </div>
       )}
     </div>
