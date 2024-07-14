@@ -30,7 +30,7 @@ const Form = ({ newarryafunction }) => {
     }
 
     return (
-        <div className='flex items-center justify-center min-h-screen py-12' style={{ background: "#efefef" }}>
+        <div className='flex items-center justify-center min-h-screen py-12 bg-gradient-to-r from-orange-400 via-pink-500 to-red-500' >
             <div className='w-full max-w-md p-6 bg-white rounded-lg shadow-md'>
                 <h1 className='text-2xl font-bold mb-6 text-center'>Welcome to the Quiz! Fill in the Details</h1>
                 <div className='grid gap-4'>
