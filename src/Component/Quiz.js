@@ -143,42 +143,46 @@ const Quiz = () => {
                   {currentQuestion.Questions}
                 </div>
                 <div className='option mt-5 text-xl'>
-                  <ul className='ml-5 mr-5'>
+
+
+
+
+                  <ul className='ml-5 mr-5 md:ml-10 md:mr-10 lg:ml-20 lg:mr-20 overflow-auto'>
                     <li
-                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '   border-4' : 'border-black'}`}
+                      className={`flex items-center mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? 'border-4' : 'border-black'} md:pl-10 lg:pl-20`}
                       onClick={() => selectAnswer('A')}
                     >
                       <div
-                        className={`flex items-center  mr-5 h-5 w-5 border-2 rounded-3xl ${answers[questionNumber].answer === 'A' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                        className={`flex items-center mr-5 h-5 w-5 border-2 rounded-3xl ${answers[questionNumber].answer === 'A' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'} md:h-6 md:w-6 lg:h-7 lg:w-7`}
                       ></div>
-                      {currentQuestion.A}
+                      <span className="flex-1">{currentQuestion.A}</span>
                     </li>
                     <li
-                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-4' : 'border-black'}`}
+                      className={`flex items-center mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? 'border-4' : 'border-black'} md:pl-10 lg:pl-20`}
                       onClick={() => selectAnswer('B')}
                     >
                       <div
-                        className={` h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'B' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                        className={`h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'B' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'} md:h-6 md:w-6 lg:h-7 lg:w-7`}
                       ></div>
-                      {currentQuestion.B}
+                      <span className="flex-1">{currentQuestion.B}</span>
                     </li>
                     <li
-                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? ' border-4' : 'border-black'}`}
+                      className={`flex items-center mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? 'border-4' : 'border-black'} md:pl-10 lg:pl-20`}
                       onClick={() => selectAnswer('C')}
                     >
                       <div
-                        className={`h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'C' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                        className={`h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'C' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'} md:h-6 md:w-6 lg:h-7 lg:w-7`}
                       ></div>
-                      {currentQuestion.C}
+                      <span className="flex-1">{currentQuestion.C}</span>
                     </li>
                     <li
-                      className={` flex items-center   mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? ' border-4' : 'border-black'}`}
+                      className={`flex items-center mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? 'border-4' : 'border-black'} md:pl-10 lg:pl-20`}
                       onClick={() => selectAnswer('D')}
                     >
                       <div
-                        className={`h-5 w-5  border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'D' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                        className={`h-5 w-5 border-2 mr-5  rounded-3xl ${answers[questionNumber].answer === 'D' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'} md:h-6 md:w-6 lg:h-7 lg:w-7`}
                       ></div>
-                      {currentQuestion.D}
+                      <span className="flex-1">{currentQuestion.D}</span>
                     </li>
                   </ul>
 
