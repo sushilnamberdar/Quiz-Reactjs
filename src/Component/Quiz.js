@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Result from './Result';
 import QuizTimer from './QuizTimer';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+
 
 const Quiz = () => {
 
@@ -14,7 +14,7 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const itemsPerPage = 36;
-  const [answred, setanswred ] = useState('0')
+  const [answred, setanswred] = useState('0')
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -144,11 +144,44 @@ const Quiz = () => {
                 </div>
                 <div className='option mt-5 text-xl'>
                   <ul className='ml-5 mr-5'>
-                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('A')}>A. {currentQuestion.A}</li>
-                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('B')}>B. {currentQuestion.B}</li>
-                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('C')}>C. {currentQuestion.C}</li>
-                    <li className={`border-2 mb-5 pb-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? 'border-solid border-indigo-500/100 bg-blue-300 border-4' : 'border-black'}`} onClick={() => selectAnswer('D')}>D. {currentQuestion.D}</li>
+                    <li
+                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'A' ? '   border-4' : 'border-black'}`}
+                      onClick={() => selectAnswer('A')}
+                    >
+                      <div
+                        className={`flex items-center  mr-5 h-5 w-5 border-2 rounded-3xl ${answers[questionNumber].answer === 'A' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                      ></div>
+                      {currentQuestion.A}
+                    </li>
+                    <li
+                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'B' ? ' border-4' : 'border-black'}`}
+                      onClick={() => selectAnswer('B')}
+                    >
+                      <div
+                        className={` h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'B' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                      ></div>
+                      {currentQuestion.B}
+                    </li>
+                    <li
+                      className={`flex items-center  mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'C' ? ' border-4' : 'border-black'}`}
+                      onClick={() => selectAnswer('C')}
+                    >
+                      <div
+                        className={`h-5 w-5 border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'C' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                      ></div>
+                      {currentQuestion.C}
+                    </li>
+                    <li
+                      className={` flex items-center   mb-5 p-2 pl-5 cursor-pointer ${answers[questionNumber].answer === 'D' ? ' border-4' : 'border-black'}`}
+                      onClick={() => selectAnswer('D')}
+                    >
+                      <div
+                        className={`h-5 w-5  border-2 mr-5 rounded-3xl ${answers[questionNumber].answer === 'D' ? 'bg-[#19c09d] border-[#19c09d]' : 'border-[#19c09d]'}`}
+                      ></div>
+                      {currentQuestion.D}
+                    </li>
                   </ul>
+
 
                 </div>
               </div>
@@ -178,7 +211,7 @@ const Quiz = () => {
               </div>
             </div>
             <div className='flex flex-col sm:flex-row w-full mt-10 justify-between  mr-5'>
-              <div className='mb-4  flex sm:mb-0 sm:mr-5 font-bold ' style={{fontSize:"20px"}}>
+              <div className='mb-4  flex sm:mb-0 sm:mr-5 font-bold ' style={{ fontSize: "20px" }}>
                 Answered: <div className=' font-bold ml-1' >{answred}</div>
               </div>
               <div className='flex flex-col sm:flex-row'>
