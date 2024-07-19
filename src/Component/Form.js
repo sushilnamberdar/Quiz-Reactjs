@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { data } from './Data';
+import axios from 'axios';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = ({ newarryafunction }) => {
     const [name, setName] = useState('');
     const [mobileno, setMobileno] = useState('');
+    const [email, setemail] = useState('');
     const [numQuestions, setNumQuestions] = useState(0);
     const navigate = useNavigate();
+    const[startquizbutton,setstartquizbutton]=useState(false);
+    const [userdetails,setuserdetails] = useState({
+        name:'',
+        email:'',
+        mobileno:'',
+        numQuestions:''
+    })
 
     const handleStartQuiz = () => {
-        if (!name.trim() || !mobileno.trim()) {
+        if (!name.trim() || !mobileno.trim() || !email.trim()) {
             alert("Please fill out all fields.");
             return;
         }
@@ -23,11 +34,63 @@ const Form = ({ newarryafunction }) => {
         const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
         const endIndex = startIndex + numQuestions;
         const slicedData = data.slice(startIndex, endIndex);
-        console.log("starting index is ", startIndex, "ending index is ", endIndex);
         newarryafunction(startIndex, endIndex);
+        setstartquizbutton(true);
 
-        navigate('/quiz');
+      
     }
+
+
+    useEffect(() => {
+        
+        if(startquizbutton){
+            console.log("api calling")
+            axios.post("http://localhost:4959/userdetails",userdetails).then((Response) => {
+                console.log(Response);
+                toast.success( Response.data.message+ " " + 'Quiz started successfully!');
+                navigate('/quiz');
+            }).catch((error) => {
+                console.log(error);
+                if (error.response && error.response.data && error.response.data.message) {
+                  toast.error(error.response.data.message);
+                } else {
+                  toast.error('An error occurred. Please try again.');
+                }
+              }).finally(() => {
+                setstartquizbutton(false)
+            })
+
+            
+        }
+    },[startquizbutton])
+
+        // function for form datails
+        const namefiled = (e) => {
+            const value = e.target.value;
+        
+            setName(e.target.value);
+            setuserdetails((prevval)=> ({...prevval , name:value}));
+        }
+
+        const emailfiled = (e) => {
+            const value = e.target.value;
+            setemail(e.target.value);
+            setuserdetails((prevval) => ({... prevval,email:value}))
+        }
+        const phonenumber = (e) => {
+            const value = e.target.value;
+            setMobileno(e.target.value);
+            setuserdetails((prevval) => ({...prevval ,mobileno:value}))
+        }
+        
+
+        const setnumberofquestion = (e) => {
+            const value = e.target.value;
+            setNumQuestions(Number(value));
+            setuserdetails((prevval) => ({...prevval ,numQuestions:value}))
+        }
+
+        
 
     return (
         <div className='flex items-center justify-center min-h-screen py-12 bg-gradient-to-r from-green-500 via-teal-500 to-blue-600' >
@@ -41,7 +104,17 @@ const Form = ({ newarryafunction }) => {
                             type='text'
                             className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={namefiled}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor='email' className='block text-sm font-medium text-gray-700'>Email:</label>
+                        <input
+                            id='email'
+                            type='email'
+                            className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
+                            value={email}
+                            onChange={emailfiled}
                         />
                     </div>
                     <div>
@@ -51,7 +124,7 @@ const Form = ({ newarryafunction }) => {
                             type='number'
                             className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
                             value={mobileno}
-                            onChange={(e) => setMobileno(e.target.value)}
+                            onChange={phonenumber}
                         />
                     </div>
                     <div>
@@ -60,7 +133,7 @@ const Form = ({ newarryafunction }) => {
                             id='numQuestions'
                             className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
                             value={numQuestions}
-                            onChange={(e) => setNumQuestions(Number(e.target.value))}
+                            onChange={setnumberofquestion}
                         >
                             <option value={0}>Select</option>
                             <option value={30}>30 Questions</option>

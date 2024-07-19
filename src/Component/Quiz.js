@@ -113,7 +113,7 @@ const Quiz = () => {
     return () => {
       window.removeEventListener('beforeunload', handleReload);
     };
-  }, []);
+  }, );
 
   if (isReload) {
     window.location.href = '/';

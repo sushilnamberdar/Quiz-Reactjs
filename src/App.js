@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Form from './Component/Form';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -7,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { data } from './Component/Data';
 import { addnewquestion } from './Component/Slices/Newarrayslice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
@@ -17,7 +18,7 @@ function App() {
     const slicedData = data.slice(start, end);
     setnewquesdata(slicedData);
   }
-  console.log(newquesdata)
+  
 
   useEffect(() => {
     if (newquesdata.length > 0) {
@@ -29,6 +30,7 @@ function App() {
   return (
     <>
       <Router>
+      <ToastContainer/>
         <Routes>
           <Route path='/' element={<Form newarryafunction={newarryafunction} />} />
           <Route path='/quiz' element={<Quiz/>} />
