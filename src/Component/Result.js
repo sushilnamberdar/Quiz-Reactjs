@@ -1,7 +1,10 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
-const Result = ({ correctAnswersCount, totalQuestions }) => {
+const Result = ({ correctAnswersCount, totalQuestions ,uid }) => {
   const navigate = useNavigate();
   const percentage = (correctAnswersCount / totalQuestions) * 100;
 
@@ -14,9 +17,28 @@ const Result = ({ correctAnswersCount, totalQuestions }) => {
       return "Don't worry, try again! 💪";
     }
   };
+  console.log('userid in result ',uid.userid);
+  const test_result = {
+    id:uid.userid,
+    totalQuestions,
+    correctAnswersCount,
+    percentage,
+  }
+  console.log('result object ',test_result)
 
   useEffect(() => {
-    // Any additional effect on component mount can be added here
+      axios.post('http://localhost:4959/testresult',test_result).then((Response) => {
+        console.log(Response.data);
+
+      }).catch((error) => {
+        console.log(error);
+        if (error.response && error.response.data && error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error('An error occurred. Please try again.');
+        }
+      })
+
   }, []);
 
   const handleRetakeQuiz = () => {

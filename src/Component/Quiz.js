@@ -5,9 +5,11 @@ import QuizTimer from './QuizTimer';
 import { useNavigate } from 'react-router-dom';
 
 
-const Quiz = () => {
+const Quiz = (userid) => {
+
 
   const newquesdata = useSelector((state) => state.newquestionarray.newquearray);
+
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,11 +124,12 @@ const Quiz = () => {
   if (!newquesdata || newquesdata.length === 0 || answers.length === 0) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <div className='flex justify-center w-full min-h-screen'>
       {showResult ? (
-        <Result correctAnswersCount={correctAnswersCount} totalQuestions={newquesdata.length} />
+        <Result correctAnswersCount={correctAnswersCount} totalQuestions={newquesdata.length} uid={userid} />
       ) : (
         <div className='w-[90%] max-w-5xl mt-10 mb-10 h-1/2 overflow-hidden shadow-xl bg-white' style={{ boxShadow: '0 -4px 10px -1px #97dbcc, 0px 0px 10px black', borderTop: '4px solid #97dbcc', borderRadius: '10px' }}>
           <div className='p-5'>

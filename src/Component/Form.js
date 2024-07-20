@@ -5,7 +5,8 @@ import axios from 'axios';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Form = ({ newarryafunction }) => {
+const Form = ({ newarryafunction ,onid }) => {
+    
     const [name, setName] = useState('');
     const [mobileno, setMobileno] = useState('');
     const [email, setemail] = useState('');
@@ -16,17 +17,17 @@ const Form = ({ newarryafunction }) => {
         name:'',
         email:'',
         mobileno:'',
-        numQuestions:''
+        
     })
 
     const handleStartQuiz = () => {
         if (!name.trim() || !mobileno.trim() || !email.trim()) {
-            alert("Please fill out all fields.");
+            toast.error("Please fill out all fields.");
             return;
         }
 
         if (numQuestions <= 0 || numQuestions > 867) {
-            alert("Please select a valid number of questions.");
+            toast.error("Please select a valid number of questions.");
             return;
         }
 
@@ -44,10 +45,11 @@ const Form = ({ newarryafunction }) => {
     useEffect(() => {
         
         if(startquizbutton){
-            console.log("api calling")
             axios.post("http://localhost:4959/userdetails",userdetails).then((Response) => {
-                console.log(Response);
                 toast.success( Response.data.message+ " " + 'Quiz started successfully!');
+                const userid = Response.data.existingUser._id;
+               onid(userid)
+                
                 navigate('/quiz');
             }).catch((error) => {
                 console.log(error);
@@ -73,6 +75,8 @@ const Form = ({ newarryafunction }) => {
         }
 
         const emailfiled = (e) => {
+
+            
             const value = e.target.value;
             setemail(e.target.value);
             setuserdetails((prevval) => ({... prevval,email:value}))
@@ -108,12 +112,8 @@ const Form = ({ newarryafunction }) => {
                         />
                     </div>
                     <div>
-                        <label htmlFor='email' className='block text-sm font-medium text-gray-700'>Email:</label>
-                        <input
-                            id='email'
-                            type='email'
-                            className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
-                            value={email}
+                        <label  className='block text-sm font-medium text-gray-700'>Email:</label>
+                        <input  type='email' className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2'
                             onChange={emailfiled}
                         />
                     </div>

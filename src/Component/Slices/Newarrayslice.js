@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   newquearray: [],
+  
 };
 
 export const newquestionarray = createSlice({
