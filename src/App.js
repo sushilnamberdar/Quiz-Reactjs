@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
   const [userid,setid] = useState('');
+  const [username,setusername] = useState({})
   const dispatch = useDispatch();
 
 
@@ -23,6 +24,11 @@ function App() {
   const id = (id) => {
     setid(id)
   }
+
+  const usern = (username) => {
+    setusername(username)
+  }
+  
 
   useEffect(() => {
     if (newquesdata.length > 0) {
@@ -36,8 +42,8 @@ function App() {
       <Router>
       <ToastContainer/>
         <Routes>
-          <Route path='/' element={<Form newarryafunction={newarryafunction}  onid={id}/>} />
-          <Route path='/quiz' element={<Quiz userid={userid}/>} />
+          <Route path='/' element={<Form newarryafunction={newarryafunction}  onid={id} username={usern}/>} />
+          <Route path='/quiz' element={<Quiz userid={userid} nuser={username}/>} />
         </Routes>
       </Router>
     </>

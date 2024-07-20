@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Form = ({ newarryafunction ,onid }) => {
+const Form = ({ newarryafunction ,onid ,username}) => {
     
     const [name, setName] = useState('');
     const [mobileno, setMobileno] = useState('');
@@ -47,9 +47,13 @@ const Form = ({ newarryafunction ,onid }) => {
         if(startquizbutton){
             axios.post("http://localhost:4959/userdetails",userdetails).then((Response) => {
                 toast.success( Response.data.message+ " " + 'Quiz started successfully!');
-                const userid = Response.data.existingUser._id;
-               onid(userid)
+                const uname = (Response.data.existingUser);
+                  username(uname);                
+
+                const userid = Response.data.existingUser._id;    
                 
+                onid(userid)
+    
                 navigate('/quiz');
             }).catch((error) => {
                 console.log(error);
