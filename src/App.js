@@ -8,6 +8,8 @@ import { addnewquestion } from './Component/Slices/Newarrayslice';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Admin from './Component/Admin';
+import AdminDashboard from './Component/AdminDashbord';
 
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
@@ -15,6 +17,10 @@ function App() {
   const [username,setusername] = useState({})
   const dispatch = useDispatch();
 
+
+  useEffect(()=>{
+    
+  })
 
   const newarryafunction = (start, end) => {
     const slicedData = data.slice(start, end);
@@ -44,6 +50,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Form newarryafunction={newarryafunction}  onid={id} username={usern}/>} />
           <Route path='/quiz' element={<Quiz userid={userid} nuser={username}/>} />
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/admindashboard' element={<AdminDashboard/>} />
         </Routes>
       </Router>
     </>
