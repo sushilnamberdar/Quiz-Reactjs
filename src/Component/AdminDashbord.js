@@ -2,46 +2,54 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AdminDashboard = () => {
-  const [results, setResults] = useState([]);
-  const [editUserId, setEditUserId] = useState(null);
-  const [editUserEmail, setEditUserEmail] = useState('');
+  const [users, setUsers] = useState([]);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteInfo, setDeleteInfo] = useState({ userId: null, testId: null });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/admin/results');
-        setResults(response.data);
+        const response = await axios.get('http://localhost:4959/admindashboard');
+        console.log(response);
+        setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching the results', error);
+        console.error('Error fetching the users', error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleDelete = async (userId) => {
+  const handleDelete = async () => {
+    const { userId, testId } = deleteInfo;
     try {
-      await axios.delete(`/api/admin/user/${userId}`);
-      setResults(results.filter(result => result.id._id !== userId));
+      await axios.delete('http://localhost:4959/deleteTestResult', { data: { id: testId } }); 
+      setUsers(prevUsers =>
+        prevUsers.map(user => {
+          if (user._id === userId) {
+            return {
+              ...user,
+              userinfo: user.userinfo.filter(info => info._id !== testId)
+            };
+          }
+          return user;
+        })
+      );
     } catch (error) {
-      console.error('Error deleting user', error);
+      console.error('Error deleting the test result', error);
     }
+    setShowConfirm(false);
+    setDeleteInfo({ userId: null, testId: null });
   };
 
-  const handleEdit = (userId, userEmail) => {
-    setEditUserId(userId);
-    setEditUserEmail(userEmail);
+  const handleDeleteClick = (userId, testId) => {
+    setDeleteInfo({ userId, testId });
+    setShowConfirm(true);
   };
 
-  const handleSaveEdit = async () => {
-    try {
-      const response = await axios.put(`/api/admin/user/${editUserId}`, { email: editUserEmail });
-      setResults(results.map(result => result.id._id === editUserId ? { ...result, id: response.data } : result));
-      setEditUserId(null);
-      setEditUserEmail('');
-    } catch (error) {
-      console.error('Error editing user', error);
-    }
+  const cancelDelete = () => {
+    setShowConfirm(false);
+    setDeleteInfo({ userId: null, testId: null });
   };
 
   return (
@@ -51,44 +59,59 @@ const AdminDashboard = () => {
         <table className="min-w-full bg-white">
           <thead className="bg-gray-800 text-white">
             <tr>
-              <th className="w-1/4 py-2">Email</th>
-              <th className="w-1/4 py-2">Mobile No</th>
-              <th className="w-1/4 py-2">Percentage</th>
-              <th className="w-1/4 py-2">Test Taken At</th>
-              <th className="w-1/4 py-2">Actions</th>
+              <th className="w-1/5 py-2">Name</th>
+              <th className="w-1/5 py-2">Email</th>
+              <th className="w-1/5 py-2">Mobile No</th>
+              <th className="w-1/5 py-2">Percentage</th>
+              <th className="w-1/5 py-2">Test Taken At</th>
+              <th className="w-1/5 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {results.map(result => (
-              <tr key={result._id} className="text-center border-t">
-                <td className="py-2">
-                  {editUserId === result.id._id ? (
-                    <input 
-                      type="email" 
-                      value={editUserEmail} 
-                      onChange={(e) => setEditUserEmail(e.target.value)}
-                      className="border p-1"
-                    />
-                  ) : (
-                    result.id.email
-                  )}
-                </td>
-                <td className="py-2">{result.id.mobileno}</td>
-                <td className="py-2">{result.percentage}</td>
-                <td className="py-2">{new Date(result.testTakenAT).toLocaleString()}</td>
-                <td className="py-2">
-                  {editUserId === result.id._id ? (
-                    <button onClick={handleSaveEdit} className="bg-green-500 text-white px-2 py-1 rounded">Save</button>
-                  ) : (
-                    <button onClick={() => handleEdit(result.id._id, result.id.email)} className="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
-                  )}
-                  <button onClick={() => handleDelete(result.id._id)} className="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete</button>
-                </td>
-              </tr>
+            {users.map((user) => (
+              user.userinfo.map((info) => (
+                <tr key={info._id}>
+                  <td className="border px-4 py-2">{user.name}</td>
+                  <td className="border px-4 py-2">{user.email}</td>
+                  <td className="border px-4 py-2">{user.mobileno}</td>
+                  <td className="border px-4 py-2">{info.percentage}</td>
+                  <td className="border px-4 py-2">{new Date(info.testTakenAT).toLocaleString()}</td>
+                  <td className="border px-4 py-2">
+                    <button
+                      onClick={() => handleDeleteClick(user._id, info._id)}
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
             ))}
           </tbody>
         </table>
       </div>
+
+      {showConfirm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
+          <div className="bg-white p-4 rounded shadow-lg">
+            <h2 className="text-xl mb-4">Are you sure you want to delete this item?</h2>
+            <div className="flex justify-end">
+              <button
+                onClick={handleDelete}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+              >
+                Yes
+              </button>
+              <button
+                onClick={cancelDelete}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
