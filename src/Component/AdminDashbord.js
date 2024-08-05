@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteInfo, setDeleteInfo] = useState({ userId: null, testId: null });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,10 +22,19 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
+    
+
   const handleDelete = async () => {
     const { userId, testId } = deleteInfo;
+    const atoken = localStorage.getItem("atoken")
+    console.log("admin token ",atoken);
     try {
-      await axios.delete('http://localhost:4959/deleteTestResult', { data: { id: testId } }); 
+      await axios.delete('http://localhost:4959/deleteTestResult',{ 
+        headers: {
+          authorization:atoken
+        },
+        data: { id: testId }
+      }); 
       setUsers(prevUsers =>
         prevUsers.map(user => {
           if (user._id === userId) {
@@ -51,10 +62,18 @@ const AdminDashboard = () => {
     setShowConfirm(false);
     setDeleteInfo({ userId: null, testId: null });
   };
+  const logoutfun = () => {
+    localStorage.removeItem('atoken');
+    navigate('/admin');
+
+  }
 
   return (
     <div className="container mx-auto p-4">
+      <div className='flex w-full justify-between'>
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <button className='border px-4 mb-1 bg-green-500 text-white font-bold rounded ' onClick={logoutfun}>Logout</button>
+      </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white">
           <thead className="bg-gray-800 text-white">
@@ -64,8 +83,8 @@ const AdminDashboard = () => {
               <th className="w-1/5 py-2">Mobile No</th>
               <th className="w-1/5 py-2">Percentage</th>
               <th className="w-1/5 py-2">Test Taken At</th>
-              <th className="w-1/5 py-2">Actions</th>
-            </tr>
+              <th className="w-1/5 py-2 px-5">Actions</th>
+            </tr> 
           </thead>
           <tbody>
             {users.map((user) => (

@@ -26,7 +26,12 @@ const Admin = () => {
             ...preval, password:value
         }))
     }
-
+    useEffect(()=>{
+      const token = localStorage.getItem('atoken');
+      if(token){
+        navigate('/admindashboard');
+      }
+    })
     const handellogin = ()=> {
         
         console.log("username",username,'paswword',password)
