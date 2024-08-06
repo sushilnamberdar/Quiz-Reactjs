@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Admin from './Component/Admin';
 import AdminDashboard from './Component/AdminDashbord';
+import AddQuestion from './Component/AddQuestion';
 
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
@@ -52,6 +53,7 @@ function App() {
           <Route path='/quiz' element={<Quiz userid={userid} nuser={username}/>} />
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/admindashboard' element={<AdminDashboard/>} />
+          <Route path='/addquestion' element={<AddQuestion/>}/>
         </Routes>
       </Router>
     </>
