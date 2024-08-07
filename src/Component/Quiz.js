@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Result from './Result';
 import QuizTimer from './QuizTimer';
-import { useNavigate } from 'react-router-dom';
 
 
-const Quiz = ({userid ,nuser}) => {
 
-  
+const Quiz = ({userid ,nuser }) => {
   const newquesdata = useSelector((state) => state.newquestionarray.newquearray);
-
+  console.log('new question data in quiz page ',newquesdata)
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +15,7 @@ const Quiz = ({userid ,nuser}) => {
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const itemsPerPage = 36;
   const [answred, setanswred] = useState('0')
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     if (newquesdata && newquesdata.length > 0) {
