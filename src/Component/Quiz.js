@@ -7,7 +7,6 @@ import QuizTimer from './QuizTimer';
 
 const Quiz = ({userid ,nuser }) => {
   const newquesdata = useSelector((state) => state.newquestionarray.newquearray);
-  console.log('new question data in quiz page ',newquesdata)
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

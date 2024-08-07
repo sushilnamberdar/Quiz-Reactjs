@@ -44,7 +44,6 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
     onQuestionsUpdate(questions);
     navigate('/quizfeeldetails');
   };
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <div className="flex-grow flex flex-col items-center justify-center p-4 relative">
