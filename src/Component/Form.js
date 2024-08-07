@@ -11,6 +11,7 @@ const Form = ({ newarryafunction, onid, username, questiondata }) => {
     const [mobileno, setMobileno] = useState('');
     const [email, setEmail] = useState('');
     const [numQuestions, setNumQuestions] = useState(0);
+    const [isReload,setIsReload] = useState(false)
     const navigate = useNavigate();
     const [startQuizButton, setStartQuizButton] = useState(false);
     const [userDetails, setUserDetails] = useState({
@@ -92,6 +93,21 @@ const Form = ({ newarryafunction, onid, username, questiondata }) => {
         setNumQuestions(Number(value));
         setUserDetails((prevVal) => ({ ...prevVal, numQuestions: value }));
     };
+
+
+    useEffect(() => {
+        const handleReload = () => {
+          setIsReload(true);
+        };
+        window.addEventListener('beforeunload', handleReload);
+        return () => {
+          window.removeEventListener('beforeunload', handleReload);
+        };
+      }, );
+    
+      if (isReload) {
+        window.location.href = '/';
+      }
     return (
         <>
         <div className='flex items-center justify-center min-h-screen py-12 bg-gradient-to-r from-green-500 via-teal-500 to-blue-600'>

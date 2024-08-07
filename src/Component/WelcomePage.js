@@ -67,7 +67,7 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
                 onClick={() => handleCategoryClick(category.questions)}
               >
                 <h2 className="text-2xl font-semibold text-gray-800 mb-2">{category.name}</h2>
-                <p className="text-gray-600">Description for {category.name}. This category contains {category.questions.length} questions.</p>
+                <p className="text-gray-600">Description for {category.name}. Total Questions {category.questions.length}</p>
               </div>
             ))}
           </div>
