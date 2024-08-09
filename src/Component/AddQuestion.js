@@ -2,24 +2,47 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddQuestion = () => {
-  const [question, setQuestion] = useState('');
+  const [questionData, setQuestionData] = useState({
+    Questions: '',
+    A: '',
+    B: '',
+    C: '',
+    D: '',
+    Ans: '',
+    TOPIC: '',
+  });
   const [jsonFile, setJsonFile] = useState(null);
   const [response, setResponse] = useState('');
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setQuestionData({
+      ...questionData,
+      [name]: value,
+    });
+  };
+
   const handleAddQuestion = async () => {
-    if (question.trim()) {
-      const data = { question, source: 'user' };
+    if (Object.values(questionData).every(field => field.trim())) {
       try {
-        const response = await axios.post('/api/questions', data);
+        const response = await axios.post('http://localhost:4959/addquestion', questionData);
         setResponse('Question added successfully!');
       } catch (error) {
         console.error('Error sending question to backend:', error);
         setResponse('Failed to add question.');
       }
-      setQuestion('');
+      setQuestionData({
+        Questions: '',
+        A: '',
+        B: '',
+        C: '',
+        D: '',
+        Ans: '',
+        TOPIC: '',
+      });
     } else {
-      console.log('Please enter a question.');
-      setResponse('Please enter a question.');
+      console.log('Please fill in all fields.');
+      setResponse('Please fill in all fields.');
     }
   };
 
@@ -31,22 +54,28 @@ const AddQuestion = () => {
         try {
           const jsonContent = JSON.parse(e.target.result);
           setJsonFile(jsonContent);
+          console.log("JSON file loaded successfully:", jsonContent);
         } catch (error) {
-          console.error('Invalid JSON file');
+          console.error('Invalid JSON file:', error);
           setResponse('Invalid JSON file.');
         }
       };
       reader.readAsText(file);
     }
   };
-
+  
   const handleJsonSubmit = async () => {
     if (jsonFile) {
       try {
-        const response = await axios.post('/api/questions', jsonFile);
+        const response = await axios.post('http://localhost:4959/uploadjson', jsonFile, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log("Response from server:", response);
         setResponse('JSON file data sent successfully!');
       } catch (error) {
-        console.error('Error sending JSON file data to backend:', error);
+        console.error('Error sending JSON file data to backend:', error.response?.data || error.message);
         setResponse('Failed to send JSON file data.');
       }
     } else {
@@ -54,17 +83,66 @@ const AddQuestion = () => {
       setResponse('Please upload a JSON file.');
     }
   };
-
+  
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6">
       <div className="mb-4">
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">Add Question</h2>
         <input
           type="text"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Enter your question"
+          name="Questions"
+          value={questionData.Questions}
+          onChange={handleInputChange}
+          placeholder="Enter the question"
           className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="A"
+          value={questionData.A}
+          onChange={handleInputChange}
+          placeholder="Option A"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="B"
+          value={questionData.B}
+          onChange={handleInputChange}
+          placeholder="Option B"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="C"
+          value={questionData.C}
+          onChange={handleInputChange}
+          placeholder="Option C"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="D"
+          value={questionData.D}
+          onChange={handleInputChange}
+          placeholder="Option D"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="Ans"
+          value={questionData.Ans}
+          onChange={handleInputChange}
+          placeholder="Correct Answer Enter only Option (A || B || C || D)"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        />
+        <input
+          type="text"
+          name="TOPIC"
+          value={questionData.TOPIC}
+          onChange={handleInputChange}
+          placeholder="Topic"
+          className="border border-gray-300 rounded-lg p-3 w-full lg:w-3/4 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
         />
         <button
           onClick={handleAddQuestion}
