@@ -15,6 +15,7 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname }) => {
     correctAnswersCount,
     percentage,
   };
+  
 
   useEffect(() => {
     axios.post('http://localhost:4959/testresult', test_result)

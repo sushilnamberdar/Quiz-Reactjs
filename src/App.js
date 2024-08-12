@@ -10,12 +10,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Admin from './Component/Admin';
 import AdminDashboard from './Component/AdminDashbord';
 import WelcomePage from './Component/WelcomePage';
+import LearningPage from './Component/LearningPage'; 
+import LearnQuestion from './Component/LearnQuestion';
 
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
   const [userid, setid] = useState('');
   const [username, setusername] = useState({});
   const [data, setData] = useState([]);
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +26,7 @@ function App() {
       dispatch(addnewquestion(newquesdata));
     }
   }, [newquesdata, dispatch]);
+
   const newarryafunction = (start, end) => {
     if (typeof start === 'number' && typeof end === 'number' && start >= 0 && end <= data.length && start < end) {
       const slicedData = data.slice(start, end);
@@ -31,7 +35,6 @@ function App() {
       console.warn("Invalid start or end values for slicing data:");
     }
   };
-  
 
   const id = (id) => {
     setid(id);
@@ -45,6 +48,10 @@ function App() {
     setData(questions);
   };
 
+  // Callback function to update selected questions
+  const handleSelectedQuestions = (questions) => {
+    setSelectedQuestions(questions);
+  };
 
   return (
     <>
@@ -56,6 +63,8 @@ function App() {
           <Route path='/quiz' element={<Quiz userid={userid} nuser={username} />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/admindashboard' element={<AdminDashboard />} />
+          <Route path='/learning' element={<LearningPage onQuestionsSelect={handleSelectedQuestions} />} /> {/* Pass the callback */}
+          <Route path='/learnquestion' element={<LearnQuestion questions={selectedQuestions} />} /> {/* Pass selected questions */}
         </Routes>
       </Router>
     </>
