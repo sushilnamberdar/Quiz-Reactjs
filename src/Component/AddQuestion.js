@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { url } from './uri';
-
+import { useNavigate } from 'react-router-dom';
 const AddQuestion = () => {
-  console.log("Atoken",localStorage.getItem('atoken'));
+  const navigate = useNavigate(); 
+ 
   const [questionData, setQuestionData] = useState({
     Questions: '',
     A: '',
@@ -13,6 +14,12 @@ const AddQuestion = () => {
     Ans: '',
     TOPIC: '',
   });
+  useEffect(()=>{
+    let atoken = localStorage.getItem('atoken');
+    if(atoken === null || atoken === undefined){
+      navigate('/admin')
+    }
+  })
   const [jsonFile, setJsonFile] = useState(null);
   const [response, setResponse] = useState('');
 

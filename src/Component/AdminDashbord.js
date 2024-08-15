@@ -23,7 +23,12 @@ const AdminDashboard = () => {
 
     fetchData();
   }, []);
-
+  useEffect(()=>{
+    let atoken = localStorage.getItem('atoken');
+    if(atoken === null || atoken === undefined){
+      navigate('/admin')
+    }
+  })
     
 
   const handleDelete = async () => {
@@ -31,7 +36,7 @@ const AdminDashboard = () => {
     const atoken = localStorage.getItem("atoken")
     console.log("admin token ",atoken);
     try {
-      await axios.delete('http://localhost:4959/deleteTestResult',{ 
+      await axios.delete(`${url}/deleteTestResult`,{
         headers: {
           authorization:atoken
         },
