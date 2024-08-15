@@ -9,9 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Admin from './Component/Admin';
 import AdminDashboard from './Component/AdminDashbord';
-import WelcomePage from './Component/WelcomePage';
-import LearningPage from './Component/LearningPage'; 
-import LearnQuestion from './Component/LearnQuestion';
 
 function App() {
   const [newquesdata, setnewquesdata] = useState([]);
@@ -58,13 +55,10 @@ function App() {
       <Router>
         <ToastContainer />
         <Routes>
-          <Route path='/' element={<WelcomePage onQuestionsUpdate={handleQuestionsUpdate} />} />
-          <Route path='/quizfeeldetails' element={<Form newarryafunction={newarryafunction} onid={id} username={usern} questiondata={data} />} />
-          <Route path='/quiz' element={<Quiz userid={userid} nuser={username} />} />
-          <Route path='/admin' element={<Admin />} />
-          <Route path='/admindashboard' element={<AdminDashboard />} />
-          <Route path='/learning' element={<LearningPage onQuestionsSelect={handleSelectedQuestions} />} /> {/* Pass the callback */}
-          <Route path='/learnquestion' element={<LearnQuestion questions={selectedQuestions} />} /> {/* Pass selected questions */}
+          <Route path='/' element={<Form newarryafunction={newarryafunction}  onid={id} username={usern}/>} />
+          <Route path='/quiz' element={<Quiz userid={userid} nuser={username}/>} />
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/admindashboard' element={<AdminDashboard/>} />
         </Routes>
       </Router>
     </>

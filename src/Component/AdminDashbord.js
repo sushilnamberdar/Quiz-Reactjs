@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { url } from './uri';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -73,7 +72,11 @@ const AdminDashboard = () => {
     <div className="container mx-auto p-4">
       <div className='flex w-full justify-between'>
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <div className='flex justify-between w-64'>
+        <button className='border px-4 mb-1 bg-blue-500 text-white rounded'><Link to='/addquestion'>ADD QUESTIONS</Link></button>
+        
       <button className='border px-4 mb-1 bg-green-500 text-white font-bold rounded ' onClick={logoutfun}>Logout</button>
+      </div>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white">
