@@ -5,6 +5,7 @@ import { url } from './uri';
 
 const LearningPage = ({ onQuestionsSelect }) => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +16,8 @@ const LearningPage = ({ onQuestionsSelect }) => {
         categorizeQuestions(data);
       } catch (error) {
         console.error('Error fetching quiz questions:', error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched
       }
     };
 
@@ -51,18 +54,39 @@ const LearningPage = ({ onQuestionsSelect }) => {
           <h1 className="text-4xl font-bold text-blue-600 mb-6">Learning Page</h1>
           <p className="text-lg text-gray-700 mb-8">Explore the categories below.</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {categories.map((category, index) => (
-              <div
-                key={index}
-                className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
-                onClick={() => handleCategoryClick(category.questions)}
-              >
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">{category.name}</h2>
-                <p className="text-gray-600">Total Questions: {category.questions.length}</p>
+          {/* Conditional rendering for loader or content */}
+          {loading ? (
+            <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+              <div className="animate-pulse flex space-x-4">
+                <div className="rounded-full bg-slate-700 h-10 w-10"></div>
+                <div className="flex-1 space-y-6 py-1">
+                  <div className="h-2 bg-slate-700 rounded"></div>
+                  <div>Loading...</div>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                     
+                      <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                    </div>
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {categories.map((category, index) => (
+                <div
+                  key={index}
+                  className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                  onClick={() => handleCategoryClick(category.questions)}
+                >
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">{category.name}</h2>
+                  <p className="text-gray-600">Total Questions: {category.questions.length}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

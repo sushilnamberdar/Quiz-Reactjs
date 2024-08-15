@@ -14,7 +14,6 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${url}/admindashboard`);
-        console.log(response);
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching the users', error);
