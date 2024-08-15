@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { url } from './uri';
 
 const AddQuestion = () => {
+  console.log("Atoken",localStorage.getItem('atoken'));
   const [questionData, setQuestionData] = useState({
     Questions: '',
     A: '',
@@ -25,7 +27,7 @@ const AddQuestion = () => {
   const handleAddQuestion = async () => {
     if (Object.values(questionData).every(field => field.trim())) {
       try {
-        const response = await axios.post('http://localhost:4959/addquestion', questionData);
+        const response = await axios.post(`${url}/addquestion`, questionData);
         setResponse('Question added successfully!');
       } catch (error) {
         console.error('Error sending question to backend:', error);
@@ -67,7 +69,7 @@ const AddQuestion = () => {
   const handleJsonSubmit = async () => {
     if (jsonFile) {
       try {
-        const response = await axios.post('http://localhost:4959/uploadjson', jsonFile, {
+        const response = await axios.post(`${url}/uploadjson`, jsonFile, {
           headers: {
             'Content-Type': 'application/json',
           },
