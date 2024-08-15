@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
+import { url } from './uri';
 
-const Result = ({ correctAnswersCount, totalQuestions, uid, uname }) => {
+const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers }) => {
   const navigate = useNavigate();
   const percentage = (correctAnswersCount / totalQuestions) * 100;
   const testDate = new Date().toLocaleDateString();
@@ -14,11 +15,12 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname }) => {
     totalQuestions,
     correctAnswersCount,
     percentage,
+    
   };
-  
+  console.log("User Answers ",userAnswers)
 
   useEffect(() => {
-    axios.post('http://localhost:4959/testresult', test_result)
+    axios.post(`${url}/testresult`, test_result)
       .then((response) => {
         console.log(response.data);
         toast.success('Results submitted successfully!');

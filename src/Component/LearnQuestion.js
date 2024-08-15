@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const LearnQuestion = ({ questions = [] }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const questionsPerPage = 2;
+  const questionsPerPage = 10;
   const [isReload,setIsReload] = useState(false)
   // Initialize feedbackState for all questions
   const [feedbackState, setFeedbackState] = useState(
-    questions.map(() => ({ selectedAnswer: null, showFeedback: false }))
+    questions.map(() => ({ selectedAswer: null, showFeedback: false }))
   );
 
   const startIndex = currentPage * questionsPerPage;
@@ -59,9 +59,9 @@ const LearnQuestion = ({ questions = [] }) => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <div className="flex-grow flex flex-col items-center justify-center p-4">
-        <div className="max-w-2xl w-full text-center mt-8">
+        <div className="max-w-7xl   w-full text-center mt-8">
           <h1 className="text-4xl font-bold text-blue-600 mb-6">Learning Questions</h1>
-          <div className="grid grid-cols-1 gap-6 mb-6">
+          <div className="grid grid-cols-1 gap-24  mb-6 sm:gap-5 lg:gap-24 sm:grid-cols-2 lg:grid-cols-2 xlg:grid-cols-3"  >
             {currentQuestions.map((question, index) => {
               const globalQuestionIndex = startIndex + index;
               const feedback = feedbackState[globalQuestionIndex] || {};

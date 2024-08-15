@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { url } from './uri';
 
 const Admin = () => {
     const[username,setusername] = useState('');
@@ -43,7 +44,7 @@ const Admin = () => {
 
     useEffect(() => {
       if(login){
-      axios.post('http://localhost:4959/admin',admindata).then((Response) => {
+      axios.post(`${url}/admin`,admindata).then((Response) => {
         console.log("response from the server ",Response)
         toast.success(Response.data.message);
         const token = Response.data.token;

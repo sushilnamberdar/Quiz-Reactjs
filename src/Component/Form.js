@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { url } from './uri';
 
 
 const Form = ({ newarryafunction, onid, username, questiondata }) => {
@@ -48,7 +49,7 @@ const Form = ({ newarryafunction, onid, username, questiondata }) => {
 
     useEffect(() => {
         if (startQuizButton) {
-            axios.post("http://localhost:4959/userdetails", userDetails).then((response) => {
+            axios.post(`${url}/userdetails`, userDetails).then((response) => {
                 toast.success(response.data.message + " " + 'Quiz started successfully!');
                 const uname = response.data.existingUser;
                 username(uname);

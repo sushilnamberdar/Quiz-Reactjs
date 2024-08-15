@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { url } from './uri';
 
 const WelcomePage = ({ onQuestionsUpdate }) => {
   const [quizQuestions, setQuizQuestions] = useState([]);
@@ -10,7 +11,7 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
   useEffect(() => {
     const fetchQuizQuestions = async () => {
       try {
-        const response = await axios.get('http://localhost:4959/questions');
+        const response = await axios.get(`${url}/questions`);
         const data = response.data;
         setQuizQuestions(data);
         categorizeQuestions(data);

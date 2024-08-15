@@ -64,13 +64,23 @@ const Quiz = ({userid ,nuser }) => {
 
   const selectAnswer = (answer) => {
     const updatedAnswers = [...answers];
-    updatedAnswers[questionNumber] = { status: 'attempted', answer };
+    updatedAnswers[questionNumber] = {
+      status: 'attempted',
+      answer,
+      correctAnswer: newquesdata[questionNumber].Ans,
+      Questionid: newquesdata[questionNumber]._id,
+    };
     setAnswers(updatedAnswers);
   };
-
+  
   const skipQuestion = () => {
     const updatedAnswers = [...answers];
-    updatedAnswers[questionNumber] = { status: 'skipped', answer: null };
+    updatedAnswers[questionNumber] = {
+      status: 'skipped',
+      answer: null,
+      correctAnswer: newquesdata[questionNumber].Ans,
+      Questionid: newquesdata[questionNumber]._id,
+    };
     setAnswers(updatedAnswers);
     nextQuestion();
   };
@@ -126,7 +136,7 @@ const Quiz = ({userid ,nuser }) => {
   return (
     <div className='flex justify-center w-full min-h-screen'>
       {showResult ? (
-        <Result correctAnswersCount={correctAnswersCount} totalQuestions={newquesdata.length} uid={userid} uname={nuser} />
+        <Result correctAnswersCount={correctAnswersCount} totalQuestions={newquesdata.length} uid={userid} uname={nuser}  userAnswers={answers} />
       ) : (
         <div className='w-[90%] max-w-5xl mt-10 mb-10 h-1/2 overflow-hidden shadow-xl bg-white' style={{ boxShadow: '0 -4px 10px -1px #97dbcc, 0px 0px 10px black', borderTop: '4px solid #97dbcc', borderRadius: '10px' }}>
           <div className='p-5'>
