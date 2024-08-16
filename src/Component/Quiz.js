@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Result from './Result';
 import QuizTimer from './QuizTimer';
+import { FaLinkedin } from 'react-icons/fa';
 
 
 
@@ -239,6 +240,7 @@ const Quiz = ({userid ,nuser }) => {
 
         </div>
       )}
+      
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FaLinkedin } from 'react-icons/fa';
 import axios from 'axios';
 import { url } from './uri';
