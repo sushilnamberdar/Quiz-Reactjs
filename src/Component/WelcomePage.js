@@ -109,10 +109,9 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
             </>
           )}
         </div>
-
         <footer className="bg-gray-200 w-full text-center flex items-center justify-center">
           <p className="text-gray-600">
-            &copy; {new Date().getFullYear()} Quiz App. All rights reserved.
+            &copy; {new Date().getFullYear()} Quiz App. All rights reserved. <a href='https://www.linkedin.com/in/sushilnamberdar' target='blank'>linkdin</a>
           </p>
         </footer>
       </div>

@@ -10,15 +10,22 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers })
   const percentage = (correctAnswersCount / totalQuestions) * 100;
   const testDate = new Date().toLocaleDateString();
 
+  const attemptedQuestions = userAnswers.filter(answer => answer.status === 'attempted');
+  console.log(attemptedQuestions);
+
   const test_result = {
     id: uid,
     totalQuestions,
     correctAnswersCount,
     percentage,
-    
+    attemptedQuestions: attemptedQuestions.map(({ status,answer, correctAnswer, Questionid }) => ({
+      status,
+      answer,
+      correctAnswer,
+      Questionid
+    })),
   };
-  console.log("User Answers ",userAnswers)
-
+  console.log("test_result",test_result);
   useEffect(() => {
     axios.post(`${url}/testresult`, test_result)
       .then((response) => {
