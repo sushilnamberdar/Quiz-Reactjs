@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { FaLinkedin } from 'react-icons/fa';
 import axios from 'axios';
 import { url } from './uri';
 
@@ -19,7 +21,7 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
       } catch (error) {
         console.error('Error fetching quiz questions:', error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       }
     };
 
@@ -109,11 +111,20 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
             </>
           )}
         </div>
-        <footer className="bg-gray-200 w-full text-center flex items-center justify-center">
-          <p className="text-gray-600">
-            &copy; {new Date().getFullYear()} Quiz App. All rights reserved. <a href='https://www.linkedin.com/in/sushilnamberdar' target='blank'>linkdin</a>
-          </p>
-        </footer>
+        <footer className="bg-gray-200 w-full text-center flex items-center justify-center p-4">
+      <p className="text-gray-600 flex items-center">
+        &copy; {new Date().getFullYear()} Quiz App. All rights reserved.{' '}
+        <a 
+          href="https://www.linkedin.com/in/sushilnamberdar" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="ml-2 flex items-center"
+        >
+          <FaLinkedin className="text-blue-700 mr-1" />
+          LinkedIn
+        </a>
+      </p>
+    </footer>
       </div>
     </>
   );

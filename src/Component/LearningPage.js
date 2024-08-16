@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FaLinkedin } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { url } from './uri';
 
 const LearningPage = ({ onQuestionsSelect }) => {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const LearningPage = ({ onQuestionsSelect }) => {
       } catch (error) {
         console.error('Error fetching quiz questions:', error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       }
     };
 
@@ -42,7 +43,7 @@ const LearningPage = ({ onQuestionsSelect }) => {
 
   const handleCategoryClick = (questions) => {
     if (onQuestionsSelect) {
-      onQuestionsSelect(questions); // Pass the selected questions to the callback
+      onQuestionsSelect(questions); 
     }
     navigate('/learnquestion');
   };
@@ -90,11 +91,20 @@ const LearningPage = ({ onQuestionsSelect }) => {
         </div>
       </div>
 
-      <footer className="bg-gray-200 w-full text-center flex items-center justify-center py-4">
-        <p className="text-gray-600">
-          &copy; {new Date().getFullYear()} Quiz App. All rights reserved.
-        </p>
-      </footer>
+      <footer className="bg-gray-200 w-full text-center flex items-center justify-center p-4">
+      <p className="text-gray-600 flex items-center">
+        &copy; {new Date().getFullYear()} Quiz App. All rights reserved.{' '}
+        <a 
+          href="https://www.linkedin.com/in/sushilnamberdar" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="ml-2 flex items-center"
+        >
+          <FaLinkedin className="text-blue-700 mr-1" />
+          LinkedIn
+        </a>
+      </p>
+    </footer>
     </div>
   );
 }
