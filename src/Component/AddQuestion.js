@@ -74,9 +74,10 @@ const AddQuestion = () => {
   };
   
   const handleJsonSubmit = async () => {
+    console.log("jsonfile",jsonFile);
     if (jsonFile) {
       try {
-        const response = await axios.post(`${url}/uploadjson`, jsonFile, {
+        const response = await axios.post(`${url}/addjsonfile`, jsonFile, {
           headers: {
             'Content-Type': 'application/json',
           },
