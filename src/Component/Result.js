@@ -11,7 +11,7 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers })
   const testDate = new Date().toLocaleDateString();
 
   const attemptedQuestions = userAnswers.filter(answer => answer.status === 'attempted');
-  console.log(attemptedQuestions);
+
 
   const test_result = {
     id: uid,
@@ -25,15 +25,14 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers })
       Questionid
     })),
   };
-  console.log("test_result",test_result);
+ 
   useEffect(() => {
     axios.post(`${url}/testresult`, test_result)
       .then((response) => {
-        console.log(response.data);
+       
         toast.success('Results submitted successfully!');
       })
       .catch((error) => {
-        console.log(error);
         if (error.response && error.response.data && error.response.data.message) {
           toast.error(error.response.data.message);
         } else {
