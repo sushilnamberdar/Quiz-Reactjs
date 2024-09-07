@@ -52,7 +52,7 @@ const Admin = () => {
         navigate('/admindashboard')
       }).catch((err)=> {
         console.log('responseerro ', err)
-        toast.error(err.message)
+        toast.error(err.response.data.message);
       }).finally(()=> {
         setlogin(false);
       })
