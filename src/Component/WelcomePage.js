@@ -55,12 +55,12 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gray-100">
-        <header className="w-full flex items-center justify-between mt-2 ml-2">
+        <header className=" flex items-center justify-between mt-2 ml-2">
           <Link to={'/'}>
             <img className='h-10 w-10' src='./logo.png' alt="Logo" />
           </Link>
-          <div>
-            <Link className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors mr-9" to='/admin'>
+          <div className='mr-10 w-40'>
+            <Link className="bg-blue-600 w-16 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors mr-9" to='/admin'>
               Admin Login
             </Link>
           </div>
