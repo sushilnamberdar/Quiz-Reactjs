@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { url } from './uri';
-
+import logo from './logo.png'
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -80,7 +80,9 @@ const AdminDashboard = () => {
   return (
     <div className="container mx-auto p-4">
       <div className='flex w-full justify-between'>
-        <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <Link to={'/'}><img className='h-10'  src={logo}/></Link>
+        <Link to={'/admindashboard'} className="text-2xl font-bold mb-4">Admin Dashboard</Link>
+        
         <div className='flex justify-between w-64'>
           <button className='border px-4 mb-1 bg-blue-500 text-white rounded'>
             <Link to='/addquestion'>ADD QUESTIONS</Link>
@@ -97,6 +99,7 @@ const AdminDashboard = () => {
             <div className="flex-1 space-y-6 py-1">
               <div className="h-2 bg-slate-700 rounded"></div>
               <div>Loading...</div>
+              <img src={logo}/>
               <div className="space-y-3">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="h-2 bg-slate-700 rounded col-span-2"></div>

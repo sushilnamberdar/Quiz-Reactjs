@@ -58,6 +58,9 @@ const LearnQuestion = ({ questions = [] }) => {
   }
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
+      <Link to={'/'}>
+      <img className='h-10 w-10 ml-3 mt-3'  src='./logo.png'/>
+      </Link>
       <div className="flex-grow flex flex-col items-center justify-center p-4">
         <div className="max-w-7xl   w-full text-center mt-8">
           <h1 className="text-4xl font-bold text-blue-600 mb-6">Learning Questions</h1>

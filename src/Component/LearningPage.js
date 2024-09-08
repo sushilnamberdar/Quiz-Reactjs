@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaLinkedin } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { url } from './uri';
 
 const LearningPage = ({ onQuestionsSelect }) => {
@@ -50,6 +50,9 @@ const LearningPage = ({ onQuestionsSelect }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
+      <Link to={'/'}>
+      <img className='h-10 w-10 ml-3 mt-3'  src='./logo.png'/>
+      </Link>
       <div className="flex-grow flex flex-col items-center justify-center p-4">
         <div className="max-w-2xl w-full text-center mt-12">
           <h1 className="text-4xl font-bold text-blue-600 mb-6">Learning Page</h1>
@@ -63,6 +66,7 @@ const LearningPage = ({ onQuestionsSelect }) => {
                 <div className="flex-1 space-y-6 py-1">
                   <div className="h-2 bg-slate-700 rounded"></div>
                   <div>Loading...</div>
+                  <img src='./logo.png'/>
                   <div className="space-y-3">
                     <div className="grid grid-cols-3 gap-4">
                       <div className="h-2 bg-slate-700 rounded col-span-2"></div>

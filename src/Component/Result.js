@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { url } from './uri';
+import { FaLinkedin } from 'react-icons/fa';
 
 const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers }) => {
   const navigate = useNavigate();
@@ -47,8 +48,15 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers })
   };
 
   return (
-    <div className='flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600'>
-      <div className='w-[90%] max-w-3xl mt-10 mb-10 p-10 bg-white shadow-xl rounded-lg text-center'>
+    <div className='w-full'>
+      <div className=' absolute'>
+      <Link to={'/'}>
+      <img className='h-10 w-10 ml-3 mt-3 '  src='./logo.png'/>
+      </Link> 
+      </div>
+    <div className='flex flex-col items-center justify-center w-full  min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600'>
+      
+      <div className='w-[90%] max-w-3xl mt-40 lg:mt-1 mb-10 p-10 bg-white shadow-xl rounded-lg text-center'>
         <h1 className='text-4xl font-bold mb-5'>Certificate of Achievement</h1>
         <p className='text-xl mb-5'>Date: {testDate}</p>
         <p className='text-2xl mb-5'>This certifies that</p>
@@ -71,6 +79,21 @@ const Result = ({ correctAnswersCount, totalQuestions, uid, uname,userAnswers })
         </button>
       </div>
       <ToastContainer />
+    </div>
+    <footer className="bg-gray-200 w-full text-center flex items-center fixed mb-0 abs justify-center p-4">
+      <p className="text-gray-600 flex items-center">
+        &copy; {new Date().getFullYear()} Quiz App. All rights reserved.{' '}
+        <a 
+          href="https://www.linkedin.com/in/sushilnamberdar" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="ml-2 flex items-center"
+        >
+          <FaLinkedin className="text-blue-700 mr-1" />
+          LinkedIn
+        </a>
+      </p>
+    </footer>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -111,8 +111,13 @@ const Form = ({ newarryafunction, onid, username, questiondata }) => {
       }
     return (
         <>
-        <div className='flex items-center justify-center min-h-screen py-12 bg-gradient-to-r from-green-500 via-teal-500 to-blue-600'>
-            <div className='w-full max-w-md p-6 bg-white rounded-lg shadow-md'>
+        <div className=' min-h-screen bg-gradient-to-r from-green-500 via-teal-500 to-blue-600'>
+        <Link to={'/'}>
+      <img className='h-10 w-10 ml-3 mt-3 absolute'  src='./logo.png'/>
+      </Link>
+        <div className='flex items-center justify-center  py-12 '>
+            
+            <div className='w-full max-w-md p-6 bg-white rounded-lg shadow-md mt-10 ml-2 mr-2'>
                 <h1 className='text-2xl font-bold mb-6 text-center'>Welcome to the Quiz! Fill in the Details</h1>
                 <div className='grid gap-4'>
                     <div>
@@ -170,6 +175,7 @@ const Form = ({ newarryafunction, onid, username, questiondata }) => {
             </div>
             
         </div> 
+        </div>
     </>
     );
 };
