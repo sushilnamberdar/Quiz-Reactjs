@@ -59,7 +59,7 @@ const WelcomePage = ({ onQuestionsUpdate }) => {
           <Link to={'/'}>
             <img className='h-10 w-10' src='./logo.png' alt="Logo" />
           </Link>
-          <div className='mr-10 w-40'>
+          <div className='mr-10 '>
             <Link className="bg-blue-600 w-16 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors mr-9" to='/admin'>
               Admin Login
             </Link>
